@@ -1,0 +1,38 @@
+{% extends "BestAuto/products_base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block nav-products %}
+<li class="nav-item active">
+  <a class="nav-link" href="{% url 'products-view' %}">Our Products</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="content-section">
+        <form method="POST", enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for image in images %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">New Product</legend>
+                {{ form|crispy}}
+            </fieldset>
+            {% endfor %}
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Product Post</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+

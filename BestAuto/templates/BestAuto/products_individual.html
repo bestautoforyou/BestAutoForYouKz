@@ -1,0 +1,84 @@
+{% extends "BestAuto/products_base.html" %}
+
+
+{% block nav-products %}
+<li class="nav-item active">
+  <a class="nav-link" href="{% url 'products-view' %}">Our Products</a>
+</li>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+<div class="product-item-individual">
+  <a href="{{ object.pimage.url }}"><img class="product-item-individual-photo" src="{{ object.pimage.url }}" alt=""></a>
+  <div class="down_content_individual">
+    <a href="#"><h4>{{ object.pname }}</h4></a>
+    <h6>{{ object.pprice }}</h6>
+    <p>{{ object.pdescription }}</p>
+    <span>{{ object.pcategory }}</span>
+  </div>
+</div>
+
+{% if user.is_authenticated %}
+<h2 class="product-item-individual-describe">THERE ARE SEVERAL OPTIONS FOR THIS PRODUCT:</h2>
+
+<a class="btn btn-outline-primary" href="{% url 'product-update' object.pk %}">Update Main Info</a>
+<a class="btn btn-outline-primary" href="{% url 'product-create-images' object.pk %}">Add More Photos</a>
+<a class="btn btn-outline-danger" href="{% url 'product-delete' object.pk %}">Delete</a>
+<a class="btn btn-outline-warning" href="{% url 'product-create' %}">Create New Product</a>
+
+{% endif  %}
+
+<h3 class="product-item-individual-describe">Others Photos for this Product:</h3>
+
+{% for image in images %}
+<article class="media content-section">
+  <div class="col-lg-5 col-md-6 all">
+      <div class="product-item">
+        <a href="{{ image.piimages.url }}"><img src="{{ image.piimages.url }}" alt=""></a>
+      </div>
+    </div>
+</article>
+{% empty %}
+  <h6 class="product-item-individual-describe">No Other Photos are available</h6>
+
+{% endfor %}
+
+
+
+
+{% endblock content %}
+
+
+
+{% block extra_js %}
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			$('.gallery a').simpleLightbox();
+		});
+	</script>
+{% endblock extra_js %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
